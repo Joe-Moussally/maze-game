@@ -2,7 +2,8 @@ var boundaries = document.querySelectorAll(".boundary");
 var start = document.querySelector("#start");
 var end = document.querySelector("#end");
 var status = document.getElementById("status");
-
+var score = 0;
+var active = true;
 
 //function for the game
 const maze = () => {
@@ -24,7 +25,7 @@ const maze = () => {
                     boundaries[j].classList.add("youlose");
                 }
 
-                document.getElementById("status").innerHTML = "YOU LOST. Move mouse over 'S' to retry, or Click 'S' to reset.";    
+                document.getElementById("status").innerHTML = "YOU LOST. Move mouse over 'S' to retry, or Click 'S' to reset.";
 
             })
         }
@@ -35,7 +36,7 @@ const maze = () => {
 }
 
 
-
+//reset function
 const reset = () => {
     //turning all boundries grey
     for (let j=0; j < boundaries.length-1; j++) {
@@ -45,10 +46,19 @@ const reset = () => {
     maze()
 }
 
+const win = () => {
+
+    score += 5;
+
+    alert("You won! --Score: "+score+);
+    maze();
+
+
+}
+
+end.addEventListener("mouseover",win)
+
 //executing script on successful load
 window.onload = function () {
-
     maze()
-
-
 }
