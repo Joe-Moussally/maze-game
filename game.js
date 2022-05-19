@@ -15,7 +15,7 @@ const maze = () => {
 
         document.getElementById("status").innerHTML = "Get to the end 'E' to win";
         
-        //adding boudries mouseover effect
+        //adding boundries mouseover effect
         for (let i=0; i < boundaries.length-1; i++) {
             boundaries[i].addEventListener("mouseover", () => {
                 
@@ -25,9 +25,6 @@ const maze = () => {
                 }
 
                 document.getElementById("status").innerHTML = "YOU LOST. Move mouse over 'S' to retry, or Click 'S' to reset.";    
-                
-                //removing event listening
-                start.removeEventListener()
 
             })
         }
@@ -37,22 +34,21 @@ const maze = () => {
     })
 }
 
-//executing script on successful load
-window.onload = function () {
 
-    maze()
-    
-
-
-}
 
 const reset = () => {
-    console.log("Reset success");
-
     //turning all boundries grey
     for (let j=0; j < boundaries.length-1; j++) {
         boundaries[j].classList.remove("youlose");
     }
 
     maze()
+}
+
+//executing script on successful load
+window.onload = function () {
+
+    maze()
+
+
 }
