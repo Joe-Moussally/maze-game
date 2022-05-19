@@ -3,10 +3,15 @@ var start = document.querySelector("#start");
 var end = document.querySelector("#end");
 var status = document.getElementById("status");
 
-window.onload = function () {
 
+//function for the game
+const maze = () => {
 
     start.addEventListener("mouseover", () => {
+
+        for (let j=0; j < boundaries.length-1; j++) {
+            boundaries[j].classList.remove("youlose");
+        }
 
         document.getElementById("status").innerHTML = "Get to the end 'E' to win";
         
@@ -19,8 +24,10 @@ window.onload = function () {
                     boundaries[j].classList.add("youlose");
                 }
 
-                document.getElementById("status").innerHTML = "YOU LOST :( Try again by clicking on 'S'";    
+                document.getElementById("status").innerHTML = "YOU LOST. Move mouse over 'S' to retry, or Click 'S' to reset.";    
                 
+                //removing event listening
+                start.removeEventListener()
 
             })
         }
@@ -28,10 +35,24 @@ window.onload = function () {
         start.addEventListener("click", reset)
 
     })
+}
+
+//executing script on successful load
+window.onload = function () {
+
+    maze()
+    
 
 
 }
 
 const reset = () => {
     console.log("Reset success");
+
+    //turning all boundries grey
+    for (let j=0; j < boundaries.length-1; j++) {
+        boundaries[j].classList.remove("youlose");
+    }
+
+    maze()
 }
