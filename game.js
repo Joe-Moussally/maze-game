@@ -3,16 +3,17 @@ var start = document.querySelector("#start");
 var end = document.querySelector("#end");
 var title = document.getElementById("status");
 var score = 0;//game score
-var canReset;//reset whole game and clear score
-var canRestart;//can restart the current round of the game
+// var canReset;//reset whole game and clear score
+// var canRestart;//can restart the current round of the game
 
 const maze = () => {
 
+    greyWalls()
     title.innerHTML = "Get to E to win. --SCORE: " + score;
     //adding event listeners when the game begins
     end.addEventListener("mouseover",win);
     start.removeEventListener("mouseover",restart);
-    start.removeEventListener("click",reset);
+
     for (let i = 0; i < boundaries.length - 1; i++) {
         boundaries[i].addEventListener("mouseover",lose);
     }
@@ -45,18 +46,28 @@ const win = () => {
 
     score += 5;
     title.innerHTML = "YOU WON!(Click S: Reset / Move to S: Restart) --SCORE: " + score;
-    canReset = true;
-    canRestart = true;
+    // canReset = true;
+    // canRestart = true;
 }
 
 //function that handles the game and score when the user restarts the round
 const restart = () => {
+    
+    greyWalls()
     maze();
 }
 
 //function that handles the game and score when the user resets the game
 const reset = () => {
+    alert("GAME HAS BEEN RESET");
     score = 0;
+    title.innerHTML = "Begin by moving your mouse over the 'S'.";
+    for (let i = 0; i < boundaries.length - 1; i++) {
+        boundaries[i].removeEventListener("mouseover",lose);
+    }
+    end.removeEventListener("mouseover",win);
+    start.addEventListener("mouseover",maze);
+    
 }
 
 //function that executes when the user loses the round
@@ -69,7 +80,10 @@ const lose = () => {
     end.removeEventListener("mouseover",win);
 
     redWalls()
+
     score -= 10;
+    title.innerHTML = "YOU LOST (Click S: Reset / Move to S: Restart) --SCORE: " + score;
+   
 
     //adding event listener to start for restart and reset
     start.addEventListener("mouseover",restart);
