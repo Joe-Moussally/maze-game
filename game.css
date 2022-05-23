@@ -126,3 +126,7 @@ neighboring elements.  Necessary to avoid giving ids to the boundary divs
 	justify-content: space-around;
 	transform: translateY(-20px);
 }
+
+#stat1,#stat2,#stat3 {
+	text-align: center;
+}

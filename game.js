@@ -80,7 +80,6 @@ const reset = () => {
 
 //function that executes when the user loses the round
 const lose = () => {
-
     stopwatch.stop();
     //remove event listener from END and walls
     
@@ -89,13 +88,10 @@ const lose = () => {
     }
     end.removeEventListener("mouseover",win);
     game.removeEventListener("mouseleave",cheat);
-
     redWalls()
-
     score -= 10;
     scoreDisplay.innerHTML = "<strong>Your Score: </strong>"+score;
    
-
     //adding event listener to start for restart and reset
     start.addEventListener("mouseover",restart);
     start.addEventListener("click",reset);
@@ -103,7 +99,7 @@ const lose = () => {
 
 //function executed when user leaves the game container aka cheating
 const cheat = () => {
-    stopwatch.stop();
+    stopwatch.reset();
     alert("NO CHEATING!!!");
     //reset score after cheating
     end.removeEventListener("mouseover",win);
