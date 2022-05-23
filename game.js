@@ -4,9 +4,13 @@ var end = document.querySelector("#end");
 var title = document.getElementById("status");
 var score = 0;//game score
 const game = document.getElementById("game");//user for cheating
+var scoreDisplay = document.getElementById("score");
+
+scoreDisplay.innerHTML = "<strong>Your Score: </strong>"+score;
 
 const maze = () => {
 
+    stopwatch.start()
     greyWalls()
     game.addEventListener("mouseleave",cheat);
     title.innerHTML = "Get to E to win. --SCORE: " + score;
@@ -46,7 +50,7 @@ const win = () => {
     game.removeEventListener("mouseleave",cheat);
 
     score += 5;
-    title.innerHTML = "YOU WON!(Click S: Reset / Move to S: Restart) --SCORE: " + score;
+    scoreDisplay.innerHTML = "<strong>Your Score: </strong>"+score;
     // canReset = true;
     // canRestart = true;
 }
@@ -88,7 +92,7 @@ const lose = () => {
     redWalls()
 
     score -= 10;
-    title.innerHTML = "YOU LOST (Click S: Reset / Move to S: Restart) --SCORE: " + score;
+    scoreDisplay.innerHTML = "<strong>Your Score: </strong>"+score;
    
 
     //adding event listener to start for restart and reset
@@ -98,9 +102,8 @@ const lose = () => {
 
 //function executed when user leaves the game container aka cheating
 const cheat = () => {
-    alert("NO CHEATING!!! (score reset)");
+    alert("NO CHEATING!!!");
     //reset score after cheating
-    score = 0;
     end.removeEventListener("mouseover",win);
     game.removeEventListener("mouseleave",cheat);
     start.addEventListener("mouseover",maze)
@@ -110,6 +113,69 @@ const cheat = () => {
     title.innerHTML = "Begin by moving your mouse over the 'S'.";
 
 }
+
+//------------------------------------------------------------------
+//--------------------Adding stopwatch functions//----------------------
+// Reference: https://www.101computing.net/stopwatch-class-javascript/
+
+class Stopwatch {
+    constructor(id, delay=100) { //Delay in ms
+      this.state = "paused";
+      this.delay = delay;
+      this.display = document.getElementById(id);
+      this.value = 0;
+    }
+    
+    formatTime(ms) {
+      var hours   = Math.floor(ms / 3600000);
+      var minutes = Math.floor((ms - (hours * 3600000)) / 60000);
+      var seconds = Math.floor((ms - (hours * 3600000) - (minutes * 60000)) / 1000);
+      var ds = Math.floor((ms - (hours * 3600000) - (minutes * 60000) - (seconds * 1000))/100);
+  
+      if (hours   < 10) {hours   = "0"+hours;}
+      if (minutes < 10) {minutes = "0"+minutes;}
+      if (seconds < 10) {seconds = "0"+seconds;}
+      return hours+':'+minutes+':'+seconds+'.'+ds;
+    }
+    
+      update() {
+      if (this.state=="running") {
+        this.value += this.delay;
+      }
+      this.display.innerHTML = this.formatTime(this.value);
+    }
+    
+    start() {
+      if (this.state=="paused") {
+        this.state="running";
+        if (!this.interval) {
+          var t=this;
+          this.interval = setInterval(function(){t.update();}, this.delay);
+        }
+      }
+    }
+    
+    stop() {
+         if (this.state=="running") {
+        this.state="paused";
+      if (this.interval) {
+        clearInterval(this.interval);
+        this.interval = null;
+      }
+         }
+    }
+    
+    reset() {
+      this.stop();
+      this.value=0;
+      this.update();
+    }
+  }
+  
+  var stopwatch = new Stopwatch("stopwatch");
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
 
 //executing game script on successful load
 window.onload = function () {
