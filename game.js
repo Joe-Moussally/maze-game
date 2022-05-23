@@ -13,7 +13,7 @@ const maze = () => {
     console.log(stopwatch.formatTime(stopwatch.value))
     greyWalls()
     game.addEventListener("mouseleave",cheat);
-    title.innerHTML = "Get to E to win. --SCORE: " + score;
+    title.innerHTML = "Get to E to win.";
 
     //adding event listeners when the game begins
     end.addEventListener("mouseover",win);
@@ -41,6 +41,12 @@ const greyWalls = () => {
 
 //function that executes when user reaches "E"
 const win = () => {
+
+    //handling time score
+    stopwatch.stop();
+    document.getElementById("last").innerHTML = stopwatch.formatTime(stopwatch.value);
+    stopwatch.reset();
+
     //remove event listener from END and walls
     end.removeEventListener("mouseover",win);
     for (let i = 0; i < boundaries.length - 1; i++) {
@@ -67,7 +73,7 @@ const reset = () => {
     document.getElementById("last").innerHTML  = "00:00:00";
     document.getElementById("best").innerHTML  = "00:00:00";
     alert("GAME HAS BEEN RESET");
-    
+
     //reseting game properties before 
     score = 0;
     title.innerHTML = "Begin by moving your mouse over the 'S'.";
@@ -82,7 +88,8 @@ const reset = () => {
 
 //function that executes when the user loses the round
 const lose = () => {
-    stopwatch.stop();
+    title.innerHTML = "You Lost! Move to S to restart. Click S to reset";
+    stopwatch.reset();
     //remove event listener from END and walls
     
     for (let i = 0; i < boundaries.length - 1; i++) {
@@ -162,7 +169,7 @@ class Stopwatch {
         clearInterval(this.interval);
         this.interval = null;
       }
-         }
+     }
     }
     
     reset() {
