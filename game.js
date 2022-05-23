@@ -5,12 +5,12 @@ var title = document.getElementById("status");
 var score = 0;//game score
 const game = document.getElementById("game");//user for cheating
 var scoreDisplay = document.getElementById("score");
+var best = 0; //to track the best time
 
 
 const maze = () => {
 
     stopwatch.start()
-    console.log(stopwatch.formatTime(stopwatch.value))
     greyWalls()
     game.addEventListener("mouseleave",cheat);
     title.innerHTML = "Get to E to win.";
@@ -45,6 +45,16 @@ const win = () => {
     //handling time score
     stopwatch.stop();
     document.getElementById("last").innerHTML = stopwatch.formatTime(stopwatch.value);
+        //comparing best to last
+    temp = stopwatch.value
+    if (best === 0) {
+        best = temp;
+    } else if (stopwatch.value < best) {
+        best = temp;
+        
+    }
+    document.getElementById("best").innerHTML = stopwatch.formatTime(best);
+    
     stopwatch.reset();
 
     //remove event listener from END and walls
@@ -72,6 +82,7 @@ const reset = () => {
     stopwatch.reset();
     document.getElementById("last").innerHTML  = "00:00:00";
     document.getElementById("best").innerHTML  = "00:00:00";
+    best = null;
     alert("GAME HAS BEEN RESET");
 
     //reseting game properties before 
