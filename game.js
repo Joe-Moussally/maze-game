@@ -54,7 +54,7 @@ const win = () => {
         
     }
     document.getElementById("best").innerHTML = stopwatch.formatTime(best);
-    
+    title.innerHTML = "You WON! Move to S to restart. Click S to reset";
     stopwatch.reset();
 
     //remove event listener from END and walls
