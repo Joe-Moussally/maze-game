@@ -82,7 +82,9 @@ const reset = () => {
 //function that executes when the user loses the round
 const lose = () => {
 
+    stopwatch.stop();
     //remove event listener from END and walls
+    
     for (let i = 0; i < boundaries.length - 1; i++) {
         boundaries[i].removeEventListener("mouseover",lose);
     }
@@ -102,6 +104,7 @@ const lose = () => {
 
 //function executed when user leaves the game container aka cheating
 const cheat = () => {
+    stopwatch.stop();
     alert("NO CHEATING!!!");
     //reset score after cheating
     end.removeEventListener("mouseover",win);
@@ -127,15 +130,15 @@ class Stopwatch {
     }
     
     formatTime(ms) {
-      var hours   = Math.floor(ms / 3600000);
-      var minutes = Math.floor((ms - (hours * 3600000)) / 60000);
-      var seconds = Math.floor((ms - (hours * 3600000) - (minutes * 60000)) / 1000);
-      var ds = Math.floor((ms - (hours * 3600000) - (minutes * 60000) - (seconds * 1000))/100);
+
+      var minutes = 0;
+      var seconds = Math.floor((ms -  (minutes * 60000)) / 1000);
+      var ds = Math.floor((ms  - (minutes * 60000) - (seconds * 1000))/100);
   
-      if (hours   < 10) {hours   = "0"+hours;}
+
       if (minutes < 10) {minutes = "0"+minutes;}
       if (seconds < 10) {seconds = "0"+seconds;}
-      return hours+':'+minutes+':'+seconds+'.'+ds;
+      return minutes+':'+seconds+'.'+ds;
     }
     
       update() {
