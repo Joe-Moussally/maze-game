@@ -47,11 +47,9 @@ const win = () => {
         boundaries[i].removeEventListener("mouseover",lose);
     }
     game.removeEventListener("mouseleave",cheat);
-
     score += 5;
     scoreDisplay.innerHTML = "<strong>Your Score: </strong>"+score;
-    // canReset = true;
-    // canRestart = true;
+
 }
 
 //function that handles the game and score when the user restarts the round
@@ -63,9 +61,13 @@ const restart = () => {
 
 //function that handles the game and score when the user resets the game
 const reset = () => {
+
+    //resetting time scores
+    stopwatch.reset();
+    document.getElementById("last").innerHTML  = "00:00:00";
+    document.getElementById("best").innerHTML  = "00:00:00";
     alert("GAME HAS BEEN RESET");
     
-
     //reseting game properties before 
     score = 0;
     title.innerHTML = "Begin by moving your mouse over the 'S'.";
