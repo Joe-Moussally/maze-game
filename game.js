@@ -6,14 +6,15 @@ var score = 0;//game score
 const game = document.getElementById("game");//user for cheating
 var scoreDisplay = document.getElementById("score");
 
-scoreDisplay.innerHTML = "<strong>Your Score: </strong>"+score;
 
 const maze = () => {
 
     stopwatch.start()
+    console.log(stopwatch.formatTime(stopwatch.value))
     greyWalls()
     game.addEventListener("mouseleave",cheat);
     title.innerHTML = "Get to E to win. --SCORE: " + score;
+
     //adding event listeners when the game begins
     end.addEventListener("mouseover",win);
     start.removeEventListener("mouseover",restart);
@@ -21,8 +22,6 @@ const maze = () => {
     for (let i = 0; i < boundaries.length - 1; i++) {
         boundaries[i].addEventListener("mouseover",lose);
     }
-
-
 
 }
 
